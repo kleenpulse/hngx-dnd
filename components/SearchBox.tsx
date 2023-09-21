@@ -30,7 +30,7 @@ export const SearchBox = ({ initailSearch }: { initailSearch?: string }) => {
 			<Label htmlFor="tag-name" className="text-right">
 				Search By Tag
 			</Label>
-			<div className="flex gap-2">
+			<div className="flex gap-2 max-sm:flex-col">
 				<Input
 					id="tag-name"
 					value={tagName}

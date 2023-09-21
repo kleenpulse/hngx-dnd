@@ -1,19 +1,20 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { links } from "@/lib/main-menu";
+
 import logo from "../public/logo.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { UploadBtn } from "./upload-btn";
+import { useRouter } from "next/navigation";
 
 export default function Nav({ path }: { path?: string }) {
 	const [isXP, setIsXP] = useState(true);
 	const [showXP, setshowXP] = useState(path === "gallery");
-	console.log(path, "======", showXP);
+	const router = useRouter();
 	return (
 		<div className=" flex w-full container mx-auto sm:px-8 relative">
-			<div className="flex h-16 items-center px-4   justify-between w-full fixed top-0 left-0 border-b">
+			<div className="flex h-16 lg:h-20 items-center px-4   justify-between w-full fixed top-0 left-0 border-b z-[99999] backdrop-blur-xl">
 				<div className="flex">
 					<Link
 						href="/gallery?path=gallery"

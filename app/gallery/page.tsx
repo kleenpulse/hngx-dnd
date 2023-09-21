@@ -1,5 +1,3 @@
-import { UploadBtn } from "../../components/upload-btn";
-
 import { Metadata } from "next";
 
 import GalleryGrid from "./gallery-grid";
@@ -7,9 +5,7 @@ import ForceRefresh from "@/components/force-refresh";
 import cloudinary from "cloudinary";
 import { SearchBox } from "@/components/SearchBox";
 import Nav from "@/components/Nav";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
+
 import { LogoutButton } from "@/components/buttons.components";
 
 export async function generateMetadata({
@@ -28,12 +24,12 @@ export type SearchResult = {
 };
 
 export default async function Gallery({
-	searchParams: { search, path },
+	searchParams: { path },
 }: {
-	searchParams: { search: string; path: string };
+	searchParams: { path: string };
 }) {
 	const results = (await cloudinary.v2.search
-		.expression(`resource_type:image ${search ? ` AND tags=${search}` : ""}`)
+		.expression(`resource_type:image`)
 
 		.with_field("tags")
 		.max_results(30)
@@ -52,7 +48,7 @@ export default async function Gallery({
 							<LogoutButton />
 						</div>
 					</div>
-					<SearchBox initailSearch={search} />
+
 					<GalleryGrid images={results?.resources} />
 				</div>
 			</section>

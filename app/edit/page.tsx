@@ -9,6 +9,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import LoadingAnimation from "@/components/LoadingAnimation";
+import Link from "next/link";
 
 export default function EditPage({
 	searchParams: { publicId },
@@ -29,10 +30,16 @@ export default function EditPage({
 		<section>
 			<ForceRefresh />
 			<div className="flex flex-col gap-8 pb-8">
-				<div className="flex justify-between">
-					<h1 className="text-3xl font-bold uppercase bg-ye">
+				<div className="flex justify-between mt-3 px-2">
+					<h1 className="text-3xl font-bold uppercase">
 						Edit {publicId.replace(/\/.*/, "")}
 					</h1>
+					<Link
+						href={"/gallery?path=gallery"}
+						className="bg-yellow-300 text-black font-medium hover:bg-yellow-400 flex justify-center items-center px-1 rounded-xl"
+					>
+						← Back
+					</Link>
 				</div>
 				<div className="flex gap-4">
 					<div className="flex flex-col gap-4">
