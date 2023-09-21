@@ -34,7 +34,7 @@ export default function Nav({ path }: { path?: string }) {
 				<div className="flex gap-4  ">
 					<div className="flex cursor-pointer" onClick={() => setIsXP(!isXP)}>
 						<p
-							className={`text-rose-500 border border-rose-500 flex items-center ${
+							className={` border border-rose-500 flex items-center cursor-pointer bg-[var(--submit)] uppercase text-lg text-white font-bold submit-btn p-1 m-4 ${
 								!isXP || !showXP ? "hidden" : ""
 							}`}
 						>
