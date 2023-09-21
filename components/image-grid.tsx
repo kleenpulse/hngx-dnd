@@ -110,18 +110,32 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 			!images?.some((image) => image.tags?.includes(tagName)) ? (
 				<div className="flex h-full w-full">
 					{suggestions.length > 0 ? (
-						<div className="absolute top-10 z-50 w-full min-h-fit backdrop-blur-xl bg-black/30 pl-3 pb-4 pt-2">
+						<div className="absolute top-11 z-50 w-full min-h-fit backdrop-blur-xl bg-black/30 pl-3 pb-4 pt-2">
 							<p className="text-white font-bold mb-2 text-2xl uppercase">
 								{suggestions.length > 1 ? "Suggestions:" : "Suggestion:"}
 							</p>
-							<ul className="flex flex-wrap gap-2 sm:font-bold text-white text-xl  ">
+							<ul className="flex flex-wrap gap-2 sm:font-bold text-white text-xl">
 								{suggestions.map((suggestion) => (
 									<li
-										className=" w-fit cursor-pointer submit-btn hover:text-cyan-400 border border-gray-300 p-1 text-sm sm:text-xl"
+										className=" w-fit cursor-pointer submit-btn hover:scale-95 border border-gray-300 p-1 text-sm sm:text-xl"
 										key={suggestion}
 										onClick={() => setTagName(suggestion)}
 									>
-										{suggestion}
+										{suggestion
+											.split(new RegExp(`(${tagName})`, "gi"))
+											.map((part, index) => (
+												<span
+													key={index}
+													style={{
+														color:
+															part.toLowerCase() === tagName.toLowerCase()
+																? "cyan"
+																: "inherit",
+													}}
+												>
+													{part}
+												</span>
+											))}
 									</li>
 								))}
 							</ul>
