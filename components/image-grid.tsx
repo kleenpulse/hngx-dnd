@@ -84,7 +84,14 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 				<Input
 					id="tag-name"
 					value={tagName}
-					onChange={(e) => setTagName(e.target.value.toLowerCase().trim())}
+					onChange={(e) => {
+						// Use a regular expression to allow only letters (a-z and A-Z) and spaces
+						const newValue = e.target.value
+							.replace(/[^a-zA-Z ]/g, "")
+							.toLowerCase()
+							.trim();
+						setTagName(newValue);
+					}}
 					placeholder="Search by #tag..."
 				/>
 			</div>
