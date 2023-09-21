@@ -23,6 +23,7 @@ export default function EditPage({
 	// set state for custom height and width
 	const [customHeight, setCustomHeight] = useState("3146");
 	const [customWidth, setCustomWidth] = useState("2752");
+	const [isTransform, setIsTransform] = useState(false);
 
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -31,8 +32,11 @@ export default function EditPage({
 			<ForceRefresh />
 			<div className="flex flex-col gap-8 pb-8">
 				<div className="flex justify-between mt-3 px-2">
-					<h1 className="text-3xl font-bold uppercase">
-						Edit {publicId.replace(/\/.*/, "")}
+					<h1 className="sm:text-3xl text-sm font-bold uppercase">
+						Edit:{" "}
+						<span className="text-cyan-300">
+							{publicId.replace(/\/.*/, "")}
+						</span>
 					</h1>
 					<Link
 						href={"/gallery?path=gallery"}
@@ -41,7 +45,7 @@ export default function EditPage({
 						← Back
 					</Link>
 				</div>
-				<div className="flex gap-4">
+				<div className="flex flex-wrap gap-4 pl-4">
 					<div className="flex flex-col gap-4">
 						<Button
 							onClick={() => setIsInput(!isInput)}
@@ -90,89 +94,110 @@ export default function EditPage({
 					{buttonFilters.map((btn) => (
 						<Button
 							onClick={() => setTransformation(btn.action)}
-							className={`text-black ${btn.bgColor}`}
+							className={`text-black ${btn.bgColor} max-sm:p-2`}
 							key={btn.label}
 						>
 							{btn.label}
 						</Button>
 					))}
 				</div>
-				<div className="grid grid-cols-2 gap-12 relative">
-					<CldImage
-						src={publicId}
-						alt="Image"
-						className="rounded-2xl"
-						width="1000"
-						height="1000"
-					/>
-					{isLoading && (
-						<div className="flex justify-center items-center flex-col">
-							<LoadingAnimation />
-							<div className="animate-blink">
-								<p className=" mt-4 text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 w-fit text-transparent bg-clip-text ">
-									Loading...
-								</p>
+				<div className="grid sm:grid-cols-2 gap-12 relative sm:pl-4 max-sm:px-3">
+					<div>
+						<p>Original</p>
+						<CldImage
+							src={publicId}
+							alt="Image"
+							className="rounded-2xl"
+							width="1000"
+							height="1000"
+						/>
+					</div>
+					<div>
+						{isTransform && <p>Transformed</p>}
+						{isLoading && (
+							<div className="flex justify-center items-center flex-col">
+								<LoadingAnimation />
+								<div className="animate-blink">
+									<p className=" mt-4 text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 w-fit text-transparent bg-clip-text ">
+										Loading...
+									</p>
+								</div>
 							</div>
-						</div>
-					)}
+						)}
 
-					{transformation === "generative-fill" && (
-						<CldImage
-							src={publicId}
-							alt="Image"
-							className="rounded-2xl"
-							width={customWidth}
-							height={customHeight}
-							crop="pad"
-							fillBackground={{ prompt }}
-							onLoadingComplete={() => setIsLoading(false)}
-						/>
-					)}
-					{transformation === "blur" && (
-						<CldImage
-							src={publicId}
-							alt="Image"
-							className="rounded-2xl"
-							width="2500"
-							height="2500"
-							blur="800"
-							onLoadingComplete={() => setIsLoading(false)}
-						/>
-					)}
-					{transformation === "grayscale" && (
-						<CldImage
-							src={publicId}
-							alt="Image"
-							className="rounded-2xl"
-							width="2500"
-							height="2500"
-							grayscale
-							onLoadingComplete={() => setIsLoading(false)}
-						/>
-					)}
-					{transformation === "zoom" && (
-						<CldImage
-							src={publicId}
-							alt="Image"
-							className="rounded-2xl"
-							width="2500"
-							height="2500"
-							zoompan
-							onLoadingComplete={() => setIsLoading(false)}
-						/>
-					)}
+						{transformation === "generative-fill" && (
+							<CldImage
+								src={publicId}
+								alt="Image"
+								className="rounded-2xl"
+								width={customWidth}
+								height={customHeight}
+								crop="pad"
+								fillBackground={{ prompt }}
+								onLoadingComplete={() => {
+									setIsLoading(false);
+									setIsTransform(true);
+								}}
+							/>
+						)}
+						{transformation === "blur" && (
+							<CldImage
+								src={publicId}
+								alt="Image"
+								className="rounded-2xl"
+								width="2500"
+								height="2500"
+								blur="800"
+								onLoadingComplete={() => {
+									setIsLoading(false);
+									setIsTransform(true);
+								}}
+							/>
+						)}
+						{transformation === "grayscale" && (
+							<CldImage
+								src={publicId}
+								alt="Image"
+								className="rounded-2xl"
+								width="2500"
+								height="2500"
+								grayscale
+								onLoadingComplete={() => {
+									setIsLoading(false);
+									setIsTransform(true);
+								}}
+							/>
+						)}
+						{transformation === "zoom" && (
+							<CldImage
+								src={publicId}
+								alt="Image"
+								className="rounded-2xl"
+								width="2500"
+								height="2500"
+								zoompan
+								onLoadingComplete={() => {
+									setIsLoading(false);
+									setIsTransform(true);
+								}}
+							/>
+						)}
 
-					{transformation === "removeBackground" && (
-						<CldImage
-							src={publicId}
-							alt="Image"
-							className="rounded-2xl"
-							width="1500"
-							height="1500"
-							removeBackground
-							onLoadingComplete={() => setIsLoading(false)}
-						/>
-					)}
+						{transformation === "removeBackground" && (
+							<CldImage
+								src={publicId}
+								alt="Image"
+								className="rounded-2xl"
+								width="1500"
+								height="1500"
+								removeBackground
+								onLoadingComplete={() => {
+									setIsLoading(false);
+									setIsTransform(true);
+								}}
+							/>
+						)}
+					</div>
 				</div>
 			</div>
 		</section>
