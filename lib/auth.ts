@@ -17,7 +17,7 @@ export const authOptions: NextAuthOptions = {
 				email: {
 					label: "Email",
 					type: "email",
-					placeholder: "user@example.com",
+					placeholder: "example@example.com",
 					// pattern: "user@example.com",
 					title: "email must be user@example.com",
 					autoComplete: "off",

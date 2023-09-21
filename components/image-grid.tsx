@@ -113,7 +113,7 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 					collisionDetection={closestCenter}
 				>
 					<SortableContext items={items} strategy={rectSortingStrategy}>
-						<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6 overflow-hidden sm:place-items-center">
+						<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6 overflow-hidden sm:place-items-center pt-3">
 							{items.map(({ id, value }, i) => (
 								<SortableItem
 									key={id}
