@@ -14,10 +14,15 @@ export function SortableItem(props: any) {
 	};
 
 	return (
-		<div style={{ ...style }} ref={setNodeRef} {...attributes} {...listeners}>
+		<div
+			style={{ touchAction: "none", ...style }}
+			ref={setNodeRef}
+			{...attributes}
+			{...listeners}
+		>
 			<CloudImages
-				width="500"
-				height="500"
+				width="400"
+				height="400"
 				alt="image"
 				src={props.value}
 				imagedata={props.imagedata}
