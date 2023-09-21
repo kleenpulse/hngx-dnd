@@ -108,28 +108,32 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 			</div>
 			{tagName.length > 1 &&
 			!images?.some((image) => image.tags?.includes(tagName)) ? (
-				<div className="relative">
-					<div className="absolute z-50 w-full min-h-fit backdrop-blur-xl bg-black/30 pl-3 pb-4">
-						<p>{suggestions.length > 1 ? "Suggestions:" : "Suggestion:"}</p>
-						<ul className="flex flex-wrap gap-2 font-bold text-white text-xl mt-2 ">
-							{suggestions.map((suggestion) => (
-								<li
-									className=" w-fit cursor-pointer submit-btn hover:text-cyan-400 border border-gray-300 p-1"
-									key={suggestion}
-									onClick={() => setTagName(suggestion)}
-								>
-									{suggestion}
-								</li>
-							))}
-						</ul>
-					</div>
+				<div className="relative h-full w-full">
+					{suggestions.length > 0 ? (
+						<div className="absolute top-0 z-50 w-full min-h-fit backdrop-blur-xl bg-black/30 pl-3 pb-4">
+							<ul className="flex flex-wrap gap-2 sm:font-bold text-white text-xl  ">
+								{suggestions.map((suggestion) => (
+									<li
+										className=" w-fit cursor-pointer submit-btn hover:text-cyan-400 border border-gray-300 p-1 text-sm"
+										key={suggestion}
+										onClick={() => setTagName(suggestion)}
+									>
+										{suggestion}
+									</li>
+								))}
+							</ul>
+						</div>
+					) : null}
 					<ErrorImage tagName={tagName} reset={setTagName} />
 					{/* Display suggestions */}
 
-					<div className="flex flex-col items-center sm:hidden w-full justify-center mt-6">
+					<div className="flex flex-col items-center sm:hidden w-full  justify-center pt-28 ">
 						<p>
 							Image with tag{" "}
-							<span className="text-cyan-400 font-bold mx-3"> #{tagName} </span>{" "}
+							<span className="text-cyan-400 font-bold mx-3 ">
+								{" "}
+								#{tagName}{" "}
+							</span>{" "}
 							not found
 						</p>
 						<button
