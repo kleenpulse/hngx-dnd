@@ -15,7 +15,7 @@ export const CloudImages = (
 	} & React.ComponentProps<typeof CldImage>
 ) => {
 	const [, startTransition] = useTransition();
-	const [imgLoading, setImgLoading] = useState(true);
+	const [imgLoading, setImgLoading] = useState(false);
 
 	return (
 		<div className="relative flex flex-col h-[300px] w-[300px] xl:h-[400px]  xl:w-[400px] bg-white/25 rounded-xl sm:h-[270px] sm:w-[270px]">
@@ -27,7 +27,8 @@ export const CloudImages = (
 			)}
 			<CldImage
 				{...props}
-				loading="lazy"
+				loading="eager"
+				priority
 				className="object-cover select-none absolute top-0 left-0 w-full h-full rounded-xl"
 				onLoadingComplete={() => setImgLoading(false)}
 			/>

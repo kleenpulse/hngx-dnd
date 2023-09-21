@@ -10,10 +10,6 @@ import {
 	PointerSensor,
 	useSensor,
 	useSensors,
-	DragOverlay,
-	UniqueIdentifier,
-	DragStartEvent,
-	DragEndEvent,
 } from "@dnd-kit/core";
 import {
 	arrayMove,
@@ -79,16 +75,16 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 		//@ts-ignore
 		setItems(filtered);
 		setFiltered(filteredImages);
-		console.log(filteredImages, "================", filtered);
 	}, [tagName, images]);
 
 	return (
 		<section>
-			<div className="flex gap-2 max-sm:flex-col mb-8">
+			<div className="flex mb-8">
 				<Input
 					id="tag-name"
 					value={tagName}
 					onChange={(e) => setTagName(e.target.value)}
+					placeholder="Search by #tag..."
 				/>
 			</div>
 
@@ -98,7 +94,7 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 				collisionDetection={closestCenter}
 			>
 				<SortableContext items={items} strategy={rectSortingStrategy}>
-					<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6">
+					<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6 overflow-hidden">
 						{items.map(({ id, value }, i) => (
 							<SortableItem
 								key={id}

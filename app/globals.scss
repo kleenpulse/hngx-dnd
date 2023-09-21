@@ -4,6 +4,9 @@
 * {
 	user-select: none;
 }
+body {
+	overflow-x: hidden;
+}
 
 @layer base {
 	.dark {
