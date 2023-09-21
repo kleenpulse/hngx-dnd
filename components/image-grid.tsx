@@ -97,7 +97,7 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 		setSuggestions(filteredSuggestions);
 	}, [tagName, images]);
 	return (
-		<section>
+		<section className="relative">
 			<div className="flex mb-8">
 				<Input
 					id="tag-name"
@@ -108,13 +108,16 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 			</div>
 			{tagName.length > 1 &&
 			!images?.some((image) => image.tags?.includes(tagName)) ? (
-				<div className="relative h-full w-full">
+				<div className="flex h-full w-full">
 					{suggestions.length > 0 ? (
-						<div className="absolute top-0 z-50 w-full min-h-fit backdrop-blur-xl bg-black/30 pl-3 pb-4">
+						<div className="absolute top-10 z-50 w-full min-h-fit backdrop-blur-xl bg-black/30 pl-3 pb-4 pt-2">
+							<p className="text-white font-bold mb-2 text-2xl uppercase">
+								{suggestions.length > 1 ? "Suggestions:" : "Suggestion:"}
+							</p>
 							<ul className="flex flex-wrap gap-2 sm:font-bold text-white text-xl  ">
 								{suggestions.map((suggestion) => (
 									<li
-										className=" w-fit cursor-pointer submit-btn hover:text-cyan-400 border border-gray-300 p-1 text-sm"
+										className=" w-fit cursor-pointer submit-btn hover:text-cyan-400 border border-gray-300 p-1 text-sm sm:text-xl"
 										key={suggestion}
 										onClick={() => setTagName(suggestion)}
 									>
