@@ -84,7 +84,7 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 				<Input
 					id="tag-name"
 					value={tagName}
-					onChange={(e) => setTagName(e.target.value.trim())}
+					onChange={(e) => setTagName(e.target.value.toLowerCase().trim())}
 					placeholder="Search by #tag..."
 				/>
 			</div>
