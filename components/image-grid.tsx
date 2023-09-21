@@ -21,6 +21,7 @@ import {
 import { SortableItem } from "@/lib/SortableItem";
 import { createRange } from "@/lib/createRange";
 import { Input } from "./ui/input";
+import { ErrorImage } from "./errors/ErrorImage";
 
 export function ImageGrid({ images }: { images?: SearchResult[] }) {
 	const [tagName, setTagName] = useState("");
@@ -83,34 +84,47 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 				<Input
 					id="tag-name"
 					value={tagName}
-					onChange={(e) => setTagName(e.target.value)}
+					onChange={(e) => setTagName(e.target.value.trim())}
 					placeholder="Search by #tag..."
 				/>
 			</div>
-
-			<DndContext
-				onDragEnd={handleDragEnd}
-				sensors={sensors}
-				collisionDetection={closestCenter}
-			>
-				<SortableContext items={items} strategy={rectSortingStrategy}>
-					<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6 overflow-hidden sm:place-items-center">
-						{items.map(({ id, value }, i) => (
-							<SortableItem
-								key={id}
-								id={id}
-								value={value}
-								tags={
-									filtered?.length
-										? filtered[i]?.tags
-										: images && images[i]?.tags
-								}
-								imagedata={filtered?.length ? filtered[i] : images && images[i]}
-							/>
-						))}
-					</div>
-				</SortableContext>
-			</DndContext>
+			{tagName.length > 2 &&
+			!images?.some((image) => image.tags?.includes(tagName)) ? (
+				<div>
+					<ErrorImage tagName={tagName} reset={setTagName} />
+					<p className="flex sm:hidden w-full justify-center mt-6">
+						Image with tag{" "}
+						<span className="text-cyan-400 font-bold mx-3"> #{tagName} </span>{" "}
+						not found
+					</p>
+				</div>
+			) : (
+				<DndContext
+					onDragEnd={handleDragEnd}
+					sensors={sensors}
+					collisionDetection={closestCenter}
+				>
+					<SortableContext items={items} strategy={rectSortingStrategy}>
+						<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6 overflow-hidden sm:place-items-center">
+							{items.map(({ id, value }, i) => (
+								<SortableItem
+									key={id}
+									id={id}
+									value={value}
+									tags={
+										filtered?.length
+											? filtered[i]?.tags
+											: images && images[i]?.tags
+									}
+									imagedata={
+										filtered?.length ? filtered[i] : images && images[i]
+									}
+								/>
+							))}
+						</div>
+					</SortableContext>
+				</DndContext>
+			)}
 		</section>
 	);
 }

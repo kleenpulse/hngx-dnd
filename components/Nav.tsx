@@ -11,16 +11,18 @@ import { useRouter } from "next/navigation";
 export default function Nav({ path }: { path?: string }) {
 	const [isXP, setIsXP] = useState(true);
 	const [showXP, setshowXP] = useState(path === "gallery");
-	const router = useRouter();
+
 	return (
 		<div className=" flex w-full container mx-auto sm:px-8 relative">
 			<div className="flex h-16 lg:h-20 items-center px-4   justify-between w-full fixed top-0 left-0 border-b z-[99999] backdrop-blur-xl">
 				<div className="flex">
 					<Link
 						href="/gallery?path=gallery"
-						className="max-sm:hidden  p-1 rounded-xl bg-emerald-400 font-medium text-black hover:bg-emerald-500"
+						className="max-sm:hidden  p-1 rounded-xl font-medium text-black hover:bg-emerald-500"
 					>
-						Image Gallery
+						<p className="bg-gradient-to-r from-[#352bf7] via-[#e10303] to-[#ff00b7] bg-clip-text text-transparent uppercase  text-3xl font-bold mt-2 sm:h-[70px] w-fit">
+							Image gallery
+						</p>
 					</Link>
 					<Link href={"/gallery?path=gallery"}>
 						<Image
