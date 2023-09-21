@@ -92,11 +92,19 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 			!images?.some((image) => image.tags?.includes(tagName)) ? (
 				<div>
 					<ErrorImage tagName={tagName} reset={setTagName} />
-					<p className="flex sm:hidden w-full justify-center mt-6">
-						Image with tag{" "}
-						<span className="text-cyan-400 font-bold mx-3"> #{tagName} </span>{" "}
-						not found
-					</p>
+					<div className="flex flex-col items-center sm:hidden w-full justify-center mt-6">
+						<p>
+							Image with tag{" "}
+							<span className="text-cyan-400 font-bold mx-3"> #{tagName} </span>{" "}
+							not found
+						</p>
+						<button
+							className="rounded-xl p-1 mt-5 border border-gray-200"
+							onClick={() => setTagName("")}
+						>
+							Clear search?
+						</button>
+					</div>
 				</div>
 			) : (
 				<DndContext
