@@ -26,6 +26,7 @@ import { ErrorImage } from "./errors/ErrorImage";
 export function ImageGrid({ images }: { images?: SearchResult[] }) {
 	const [tagName, setTagName] = useState("");
 	const [filtered, setFiltered] = useState<SearchResult[] | undefined>([]);
+	const [suggestions, setSuggestions] = useState<string[]>([]); // Store search suggestions
 	const initialItems = createRange<{ id: number; value: string }>(
 		(images?.length && images.length) || 0,
 		(index) => ({
@@ -76,29 +77,55 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 		//@ts-ignore
 		setItems(filtered);
 		setFiltered(filteredImages);
-	}, [tagName, images]);
 
+		// Extract unique tags from all images for suggestions
+		const allTags = images?.reduce((tags, image) => {
+			if (image.tags) {
+				return [...tags, ...image.tags];
+			}
+			return tags;
+		}, [] as string[]);
+
+		const uniqueTags = Array.from(new Set(allTags));
+
+		// Filter suggestions based on user input (tagName)
+		const filteredSuggestions = uniqueTags.filter((tag) =>
+			tag.toLowerCase().includes(tagName.toLowerCase())
+		);
+
+		// Set the suggestions state
+		setSuggestions(filteredSuggestions);
+	}, [tagName, images]);
 	return (
 		<section>
 			<div className="flex mb-8">
 				<Input
 					id="tag-name"
 					value={tagName}
-					onChange={(e) => {
-						// Use a regular expression to allow only letters (a-z and A-Z) and spaces
-						const newValue = e.target.value
-							.replace(/[^a-zA-Z ]/g, "")
-							.toLowerCase()
-							.trim();
-						setTagName(newValue);
-					}}
+					onChange={(e) => setTagName(e.target.value.toLowerCase().trim())}
 					placeholder="Search by #tag..."
 				/>
 			</div>
-			{tagName.length > 2 &&
+			{tagName.length > 1 &&
 			!images?.some((image) => image.tags?.includes(tagName)) ? (
-				<div>
+				<div className="relative">
+					<div className="absolute z-50 w-full min-h-fit backdrop-blur-xl bg-black/30 pl-3 pb-4">
+						<p>{suggestions.length > 1 ? "Suggestions:" : "Suggestion:"}</p>
+						<ul className="flex flex-wrap gap-2 font-bold text-white text-xl mt-2 ">
+							{suggestions.map((suggestion) => (
+								<li
+									className=" w-fit cursor-pointer submit-btn hover:text-cyan-400 border border-gray-300 p-1"
+									key={suggestion}
+									onClick={() => setTagName(suggestion)}
+								>
+									{suggestion}
+								</li>
+							))}
+						</ul>
+					</div>
 					<ErrorImage tagName={tagName} reset={setTagName} />
+					{/* Display suggestions */}
+
 					<div className="flex flex-col items-center sm:hidden w-full justify-center mt-6">
 						<p>
 							Image with tag{" "}
@@ -120,7 +147,7 @@ export function ImageGrid({ images }: { images?: SearchResult[] }) {
 					collisionDetection={closestCenter}
 				>
 					<SortableContext items={items} strategy={rectSortingStrategy}>
-						<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6 overflow-hidden sm:place-items-center pt-3">
+						<div className="flex flex-col items-center w-full sm:grid sm:grid-cols-2 md:grid-cols-3  xl:grid-cols-4 gap-4 sm:gap-6 overflow-hidden sm:place-items-center">
 							{items.map(({ id, value }, i) => (
 								<SortableItem
 									key={id}

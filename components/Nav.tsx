@@ -18,9 +18,9 @@ export default function Nav({ path }: { path?: string }) {
 				<div className="flex">
 					<Link
 						href="/gallery?path=gallery"
-						className="max-sm:hidden  p-1 rounded-xl font-medium text-black hover:bg-emerald-500"
+						className="max-sm:hidden  p-1 rounded-xl font-medium text-black "
 					>
-						<p className="bg-gradient-to-r from-[#352bf7] via-[#e10303] to-[#ff00b7] bg-clip-text text-transparent uppercase  text-3xl font-bold mt-2 sm:h-[70px] w-fit">
+						<p className="bg-gradient-to-r from-[#352bf7] via-[#e10303] to-[#ff00b7] bg-clip-text text-transparent uppercase  text-3xl font-bold mt-2 sm:h-[70px] w-fit hover:brightness-150 hover:saturate-150 transition-all duration-300">
 							Image gallery
 						</p>
 					</Link>
