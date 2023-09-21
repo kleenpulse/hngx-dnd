@@ -34,7 +34,7 @@ export const CloudImages = (
 			/>
 			{!imgLoading && (
 				<div className="absolute bottom-0 left-0 flex items-center  tags w-full">
-					<p className="sm:ml-1 flex gap-3 w-full flex-wrap ">
+					<p className="m-1 flex gap-3 w-full flex-wrap ">
 						{props.tags.slice(0, 4).map((tag, i) => (
 							<span
 								className="border border-gray-300 text-gray-300 p-1 py-0 lg:text-sm text-[10px]"
