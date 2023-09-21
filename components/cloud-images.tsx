@@ -18,7 +18,7 @@ export const CloudImages = (
 	const [imgLoading, setImgLoading] = useState(false);
 
 	return (
-		<div className="relative flex flex-col h-[300px] w-[300px] xl:h-[400px]  xl:w-[400px] bg-white/25 rounded-xl sm:h-[270px] sm:w-[270px]">
+		<div className="relative flex flex-col h-[300px] w-[300px] xl:h-[300px]  xl:w-[300px] bg-white/25 rounded-xl sm:h-[270px] sm:w-[270px]">
 			{imgLoading && (
 				<div className="w-full h-full flex items-center justify-center flex-col">
 					<LoadingAnimation />
