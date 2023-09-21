@@ -6,21 +6,30 @@ First, install packages and run the development server:
 
 ```bash
 npm install
-npm run dev
+```
 
+```bash
+npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-# You will be greeted will a home page
+## You will be greeted will a home page
 
-## click "Sign in" to Login in
+click "Sign in" to Login in
 
 ## Login Details
 
+Email (all lowercase)
+
 ```
-Email: user@example.com (all lowercase)
-Password: 1Password (Capitalized)
+user@example.com
+```
+
+Password (capitalized)
+
+```
+1Password
 ```
 
 # Having problem logging in?
@@ -29,6 +38,6 @@ Password: 1Password (Capitalized)
 
 ## Deployed on Vercel
 
-Check out the live url on [Vercel](https://hngx-dnd.vercel.app).
+Check out the live url on [VERCEL](https://hngx-dnd.vercel.app).
 
-Check out [Next.js documentation](https://nextjs.org/docs) to get started it pure genius.
+Check out [Next.js](https://nextjs.org/docs) documentation to get started it pure genius.
